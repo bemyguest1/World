@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#030611"><title>Our Little Universe ❤️</title>
+<style>
+:root{--cyan:#83e8ff;--pink:#ff9bd4;--muted:#c8d0ed}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#030611;color:#f8f8ff;font-family:Georgia,"Times New Roman",serif}
+.page{display:none;position:relative;min-height:100svh;padding:25px 16px 34px;align-items:center;justify-content:center;flex-direction:column;text-align:center;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#111b3c,#050817 64%,#02040c)}
+.page.active{display:flex}.stars{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(1.5px 1.5px at 15% 20%,#fff 50%,transparent 55%),radial-gradient(1px 1px at 75% 17%,#9bdfff 50%,transparent 55%),radial-gradient(2px 2px at 85% 68%,#fff 50%,transparent 55%),radial-gradient(1px 1px at 35% 78%,#c4b5fd 50%,transparent 55%);background-size:260px 260px;opacity:.7}
+.content{position:relative;z-index:2;width:min(100%,720px)}.kicker{font-size:.72rem;text-transform:uppercase;letter-spacing:.2em;color:var(--cyan);font-weight:bold}
+h1{font-size:clamp(2.5rem,9vw,5rem);line-height:1.05;margin:18px 0}h2{font-size:clamp(1.7rem,6vw,2.7rem);line-height:1.15;margin:12px 0}
+p{line-height:1.7;color:var(--muted)}.glow{text-shadow:0 0 18px #74ddff88,0 0 42px #9878ff55}
+button{font:inherit;font-weight:bold;color:#081020;background:linear-gradient(100deg,#8be7ff,#c0b0ff,#ffb4de);border:0;border-radius:999px;padding:14px 22px;margin-top:18px;min-height:48px;cursor:pointer}
+.subtle{font-size:.83rem;color:#aab2d4}
+.earth-stage{position:relative;width:min(84vw,420px);aspect-ratio:1;margin:18px auto;isolation:isolate}
+.earth-sphere{position:absolute;inset:0;border-radius:50%;overflow:hidden;background-color:#061738;box-shadow:inset -32px -16px 44px #000c,inset 12px 6px 20px #c9f6ff45,0 0 0 2px #7de3ff3b,0 0 42px #3b82f688}
+.earth-sphere img{width:200%;height:100%;max-width:none;object-fit:cover;position:absolute;left:0;top:0;animation:earthSpin 32s linear infinite;filter:saturate(1.1) contrast(1.08)}
+.earth-sphere:after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 28% 25%,#fff4 0,transparent 30%),linear-gradient(100deg,transparent 38%,#02081744 68%,#000b 100%);pointer-events:none}
+.earth-ring{position:absolute;inset:-6%;border:1px solid #85e7ff44;border-radius:50%;transform:rotate(-22deg) scaleY(.3);pointer-events:none}
+@keyframes earthSpin{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.earth-sphere.zoom{animation:zoom 1.4s cubic-bezier(.65,0,.25,1) forwards}@keyframes zoom{to{transform:scale(4);opacity:0;filter:blur(4px)}}
+.map-panel{margin:18px auto 0;width:min(100%,650px);padding:12px 10px 18px;border:1px solid #8be7ff40;border-radius:25px;background:linear-gradient(145deg,#0c1731ef,#17112aef)}
+.map-heading{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#a7eaff;margin:5px 0 12px}
+.map-wrap{position:relative;width:100%;max-width:560px;margin:auto;min-height:350px;background:transparent}
+#indiaMap{display:block;width:100%;height:auto;max-height:520px;overflow:visible;background:transparent}
+.state-shape{fill:#183b60;stroke:#75cfff;stroke-width:.65;vector-effect:non-scaling-stroke}
+.state-shape.highlight{fill:#2b82aa;stroke:#e5fbff;stroke-width:1.4}
+.route{fill:none;stroke:var(--pink);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:7 7;filter:drop-shadow(0 0 5px #ff73c7);animation:flow 1.4s linear infinite;vector-effect:non-scaling-stroke}
+@keyframes flow{to{stroke-dashoffset:-28}}
+.map-pin{fill:var(--cyan);stroke:#fff;stroke-width:1.3;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px #63e6ff)}
+.map-pin.pink{fill:var(--pink);filter:drop-shadow(0 0 5px #ff73c7)}
+.avatar-pin{position:absolute;display:flex;align-items:center;gap:7px;text-align:left;z-index:3;max-width:47%;animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+.avatar-pin.me{left:0;bottom:4%}.avatar-pin.susu{right:0;top:2%;flex-direction:row-reverse;text-align:right;animation-delay:.3s}
+@keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+.avatar{width:clamp(54px,15vw,88px);height:clamp(54px,15vw,88px);border-radius:50%;object-fit:cover;border:2px solid var(--cyan);box-shadow:0 0 0 4px #6ddfff1e,0 0 20px #47cfff65;background:linear-gradient(135deg,#1d477d,#7551a6);flex-shrink:0}
+.avatar-name{font-weight:bold;font-size:.88rem;text-shadow:0 2px 8px #000}.avatar-place{font-size:.68rem;color:#bdeeff;max-width:105px;line-height:1.3}
+.distance{font-family:system-ui,sans-serif;font-size:clamp(1.6rem,6vw,2.4rem);font-weight:900;margin:14px 0 0}.caption{font-size:.72rem;color:#aab2d4;margin:0}
+.map-person{position:absolute;z-index:4;display:flex;align-items:center;justify-content:center;width:clamp(52px,14vw,74px);height:clamp(52px,14vw,74px);padding:0;border:0;border-radius:50%;background:transparent;box-shadow:none;transform:translate(-50%,-50%);pointer-events:none}
+.map-person.susu{flex-direction:row;text-align:center}.map-person .avatar{width:100%;height:100%;border-width:2px}.avatar-holder{position:relative;display:block;flex:0 0 auto;width:100%;height:100%}.avatar-holder .avatar{position:absolute;inset:0}.map-person .avatar-name,.map-person .avatar-place{display:none}
+.route-distance{position:absolute;z-index:5;transform:translate(-50%,-50%);padding:4px 8px;border-radius:20px;background:#080c20ed;border:1px solid #ff9bd4;color:#fff;font:800 clamp(.82rem,3vw,1.1rem) system-ui,sans-serif;white-space:nowrap;box-shadow:0 0 12px #ff73c777}
+.legend{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;font-size:.75rem;color:#cbd4f2;margin-top:10px}.legend span{display:flex;align-items:center;gap:6px}.dot{width:8px;height:8px;border-radius:50%;background:var(--cyan)}.dot.pink{background:var(--pink)}
+.hug{font-size:clamp(4rem,20vw,7rem);margin:20px 0}.heart{font-size:2rem;color:var(--pink)}
+@media(max-width:430px){.map-panel{padding:10px 6px 16px}.map-wrap{min-height:390px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style></head><body>
+<section class="page active" id="p1"><div class="stars"></div><div class="content"><div class="kicker">A little universe, just for us</div><h1 class="glow">Two hearts.<br>One world. <span style="color:#ff9bd4">♥</span></h1><p>Somewhere on this beautiful planet, there's a girl who makes my whole world feel different.</p><p class="subtle">This little universe is for you, Susu. ✨</p><button onclick="showPage(2)">Take me to our world 🌍</button></div></section>
+<section class="page" id="p2"><div class="stars"></div><div class="content"><div class="kicker">One planet · two places</div><h2 class="glow">The same Earth beneath our feet.</h2><div class="earth-stage"><div class="earth-sphere" id="earthSphere"><img src="https://assets.science.nasa.gov/dynamicimage/assets/science/esd/climate/2023/12/ImageWall5_1920x1200-80.jpg?crop=faces%2Cfocalpoint&fit=crop&h=1200&w=1920" alt="NASA Blue Marble view of Earth" onerror="this.style.display='none';this.parentElement.classList.add('earth-fallback')"></div><div class="earth-ring"></div></div><p>Different cities. Different skies. Still sharing one world — and somehow, my favourite part of it is you.</p><button onclick="zoomToIndia()">Zoom in to our places ♥</button><p class="subtle">Tap to travel from space towards India.</p></div></section>
+<section class="page" id="p3"><div class="stars"></div><div class="content"><div class="kicker">Miles apart, connected by love</div><h2 class="glow">Different places, one heart ♥</h2><p style="margin:4px 0">You are far from me, but never far from my heart. ♥</p><div class="map-panel"><div class="map-heading">From my place to your place</div><div class="map-wrap" id="mapWrap">
+<svg id="indiaMap" viewBox="0 0 420 480" role="img" aria-label="Geographic map of Indian states, with Kerala and West Bengal highlighted"><text x="210" y="220" text-anchor="middle" fill="#c8d0ed" font-size="13">Loading accurate state boundaries…</text></svg>
+<div class="map-person me" id="mePin"><span class="avatar-holder"><img class="avatar" src="myphoto.jpg" alt="Your photo"></span></div>
+<div class="map-person susu" id="susuPin"><span class="avatar-holder"><img class="avatar" src="susu.jpg" alt="Susu's photo"></span></div>
+<div class="route-distance" id="routeDistance">1,680 km</div>
+</div></div><p>Even with all those kilometres between us, there's a line that always leads my heart to you.</p><button onclick="showPage(4)">Until we meet 🫂</button></div></section>
+<section class="page" id="p4"><div class="stars"></div><div class="content"><div class="kicker">Until the distance disappears</div><div class="hug">🌍💗🫂</div><h1 class="glow">One day,<br>together.</h1><p>One day, we won't have to count kilometres or miss each other through a screen. I'll get to hold your hand, look into your eyes, and make all this waiting worth it.</p><p class="glow"><strong>Until then, every kilometre is worth it because it's you. ♥</strong></p><div class="heart">♥</div><p>No matter the distance, you're my favourite place.</p><p class="subtle">Made with love, just for Susu ✨</p></div></section>
+<script>
+const pages=[...document.querySelectorAll('.page')];
+function showPage(n){pages.forEach(p=>p.classList.remove('active'));document.getElementById('p'+n).classList.add('active');window.scrollTo(0,0)}window.showPage=showPage;
+window.zoomToIndia=()=>{const earth=document.getElementById('earthSphere');earth.classList.add('zoom');setTimeout(()=>showPage(3),1200)};
+/* Draw the India map from a better state-boundary dataset and position both photos at their real locations. */
+async function loadAccurateIndia(){
+ const svg=document.getElementById('indiaMap'),wrap=document.getElementById('mapWrap');
+ try{
+  const [d3,geo]=await Promise.all([
+   import('https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm'),
+   fetch('https://raw.githubusercontent.com/AbhinavSwami28/india-official-geojson/main/india-states-simplified.geojson').then(r=>{if(!r.ok)throw Error('map data unavailable');return r.json()})
+  ]);
+  const features=(geo.features||[]).filter(f=>f.geometry && f.geometry.coordinates);
+  if(!features.length) throw Error('empty map data');
+  const projection=d3.geoMercator().fitExtent([[22,12],[398,465]],{type:'FeatureCollection',features});
+  const path=d3.geoPath(projection),ns='http://www.w3.org/2000/svg';svg.innerHTML='';
+  // Subtle glow and transparent canvas: only the geographic shapes are filled.
+  const defs=document.createElementNS(ns,'defs');const filter=document.createElementNS(ns,'filter');filter.setAttribute('id','mapGlow');
+  const blur=document.createElementNS(ns,'feGaussianBlur');blur.setAttribute('stdDeviation','2');blur.setAttribute('result','blur');filter.appendChild(blur);defs.appendChild(filter);svg.appendChild(defs);
+  const nameOf=f=>String(f.properties?.name||f.properties?.NAME_1||f.properties?.shapeName||f.properties?.STATE||f.properties?.st_nm||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  features.forEach(f=>{const p=document.createElementNS(ns,'path');p.setAttribute('d',path(f));p.setAttribute('class','state-shape'+(['kerala','west bengal'].includes(nameOf(f))?' highlight':''));p.setAttribute('fill-rule','evenodd');p.setAttribute('aria-label',nameOf(f));svg.appendChild(p)});
+  // Geographic coordinates are projected onto the map. A visual fallback keeps
+  // the markers inside the Indian outline if a third-party dataset uses an
+  // unexpected coordinate format.
+  let thrissur=projection([76.2144,10.5276]),kolkata=projection([88.3639,22.5726]);
+  const validPoint=p=>Array.isArray(p)&&Number.isFinite(p[0])&&Number.isFinite(p[1])&&p[0]>35&&p[0]<385&&p[1]>25&&p[1]<455;
+  if(!validPoint(thrissur)||!validPoint(kolkata)||Math.abs(thrissur[0]-kolkata[0])<12) throw Error('Geographic projection failed');
+  const route=document.createElementNS(ns,'path');const mx=(thrissur[0]+kolkata[0])/2+4,my=(thrissur[1]+kolkata[1])/2-4;
+  route.setAttribute('d',`M ${thrissur[0]} ${thrissur[1]} Q ${mx} ${my} ${kolkata[0]} ${kolkata[1]}`);route.setAttribute('class','route');svg.appendChild(route);
+  [[thrissur[0],thrissur[1],'map-pin'],[kolkata[0],kolkata[1],'map-pin pink']].forEach(([x,y,cls])=>{const c=document.createElementNS(ns,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','4.5');c.setAttribute('class',cls);svg.appendChild(c)});
+  function toWrap(point){
+    // Convert true SVG map coordinates to CSS pixels, accounting for preserveAspectRatio.
+    const pt=svg.createSVGPoint();pt.x=point[0];pt.y=point[1];
+    const screen=pt.matrixTransform(svg.getScreenCTM());const wr=wrap.getBoundingClientRect();
+    return [screen.x-wr.left,screen.y-wr.top];
+  }
+  function placeOverlay(id,point){
+    const el=document.getElementById(id),xy=toWrap(point);
+    // The center of each circular photo is exactly on its geographic coordinate.
+    el.style.left=xy[0]+'px';el.style.top=xy[1]+'px';
+  }
+  function positionPeople(){
+    // Anchors sit directly on the mapped coordinates for Thrissur and Kolkata.
+    placeOverlay('mePin',thrissur);placeOverlay('susuPin',kolkata);
+    const d=document.getElementById('routeDistance'),mid=[(thrissur[0]+kolkata[0])/2,(thrissur[1]+kolkata[1])/2],xy=toWrap(mid);
+    d.style.left=xy[0]+'px';d.style.top=xy[1]+'px';
+  }
+  positionPeople();window.addEventListener('resize',positionPeople);
+ }catch(e){svg.innerHTML='<text x="210" y="210" text-anchor="middle" fill="#c8d0ed" font-size="13">India map needs internet access.</text><text x="210" y="232" text-anchor="middle" fill="#aab2d4" font-size="10">Please open the website while online.</text>';}
+}
+loadAccurateIndia();
+</script></body></html>
